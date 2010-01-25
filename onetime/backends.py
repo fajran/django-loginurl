@@ -4,10 +4,11 @@ from onetime.models import Key
 
 class OneTimeBackend:
     def authenticate(self, key):
-        data = Key.objects.get(key=key)
-        if data is None:
-            None
+        data = Key.objects.filter(key=key)
+        if len(data) == 0:
+            return None
 
+        data = data[0]
         if not data.is_valid():
             return None
 
