@@ -5,7 +5,11 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import login
 from django.conf import settings
 
+from onetime import utils
 from onetime.models import Key
+
+def cleanup(request):
+    utils.cleanup()
 
 def login(request, key):
     data = get_object_or_404(Key, key=key)
