@@ -15,7 +15,7 @@ def login(request, key, redirect_expired_to=None):
     data = get_object_or_404(Key, key=key)
 
     expired = False
-    if data.usage_left is not None and data.usage_left == 0:
+    if data.usage_left is not None and data.usage_left <= 0:
         expired = True
     if data.expires is not None and data.expires < datetime.now():
         expired = True
