@@ -32,5 +32,6 @@ def create(user, usage_left=1, expires=None, next=None):
 def cleanup():
     data = Key.objects.filter(Q(usage_left__lte=0) | 
                               Q(expires__lt=datetime.now()))
-    data.delete()
+    if data is not None:
+        data.delete()
 
