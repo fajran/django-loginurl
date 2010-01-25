@@ -6,6 +6,8 @@ from django.conf import settings
 
 from onetime.models import Key
 
+__version__ = '0.1.0'
+
 def create(user, usage_left=1, expires=None, next=None):
     id = str(uuid.uuid4())
     hash = hashlib.sha1(id)
