@@ -1,16 +1,23 @@
 import uuid
 import hashlib
+from datetime import datetime
 
 from django.db.models import Q
 from django.conf import settings
+from django.utils.http import int_to_base36, base36_to_int
 
 from onetime.models import Key
 
-def create(user, usage_left=1, expires=None, next=None):
-    id = str(uuid.uuid4())
-    hash = hashlib.sha1(id)
+def _create_token(user):
+    id = '%d-%s' % (user.id, str(uuid.uuid4()))
+    hash = hashlib.md5(id)
     hash.digest()
-    key = hash.hexdigest()
+    return hash.hexdigest()
+
+def create(user, usage_left=1, expires=None, next=None):
+    token = _create_token(user)
+    b36_uid = int_to_base36(user.id)
+    key = '%s-%s' % (b36_uid, token)
 
     data = Key()
     data.user = user
@@ -20,7 +27,7 @@ def create(user, usage_left=1, expires=None, next=None):
     data.next = next
     data.save()
 
-    return key
+    return data
 
 def cleanup():
     data = Key.objects.filter(Q(usage_left__lte=0) | 
