@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from django.http import HttpResponseRedirect, HttpResponseGone
-from django.shortcuts import get_object_or_404
 from django.contrib.auth import login
 from django.conf import settings
 
@@ -11,8 +10,13 @@ from onetime.models import Key
 def cleanup(request):
     utils.cleanup()
 
-def login(request, key, redirect_expired_to=None):
-    data = get_object_or_404(Key, key=key)
+def login(request, key, redirect_invalid_to=None, redirect_expired_to=None):
+    data = Key.objects.get(key=key)
+    if data is None:
+        if redirect_invalid_to is not None:
+            return HttpResponseRedirect(redirect_invalid_to)
+        else:
+            return HttpResponseGone()
 
     expired = False
     if data.usage_left is not None and data.usage_left <= 0:
