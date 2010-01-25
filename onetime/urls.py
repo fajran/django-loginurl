@@ -5,7 +5,7 @@ from onetime.views import cleanup, login
 
 urlpatterns = patterns('',
     (r'^cleanup/$', cleanup),
-    (r'^(?P<key>[a-z0-9+])$', login), 
+    (r'^(?P<key>[0-9A-Za-z]+-[a-z0-9-]+)/$', login), 
     (r'^$', redirect_to, {'url': None}),
 )
 
