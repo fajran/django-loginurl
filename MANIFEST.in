@@ -1,3 +1,5 @@
 include LICENSE
 include MANIFEST.in
 include AUTHORS
+include README.rst
+include CHANGELOG
