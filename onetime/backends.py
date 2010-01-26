@@ -3,7 +3,15 @@ from django.contrib.auth.models import User
 from onetime.models import Key
 
 class OneTimeBackend:
+    """
+    Authentication backend that checks the given ``key`` to a record in the
+    ``Key`` model. If the record is found, then ``is_valid()`` method is called
+    to check if the key is still valid.
+    """
     def authenticate(self, key):
+        """
+        Check if the key is valid.
+        """
         data = Key.objects.filter(key=key)
         if len(data) == 0:
             return None
