@@ -51,3 +51,20 @@ be set up. This task should do one of the following.
 You can use crontab or the web based one to set this up. A daily or weekly task
 should be enough.
 
+
+Usage
+-----
+
+If your application need to create a one time log in URL, what you need to do
+is calling ``onetime.utils.create`` with a user object as the parameter. The
+resulting object is an instance of ``onetime.models.Key`` that has a property
+called ``key`` that contains a unique key for the log in URL.
+
+    import onetime.utils
+
+    def create_login_url(user):
+        key = onetime.utils.create(user)
+        url = 'http://example.com/onetime/%s' % key.key
+
+        return url
+
