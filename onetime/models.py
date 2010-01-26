@@ -22,7 +22,7 @@ class Key(models.Model):
         return True
 
     def update_usage(self):
-        if self.usage_left is not None:
+        if self.usage_left is not None and self.usage_left > 0:
             self.usage_left -= 1
             self.save()
 
