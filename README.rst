@@ -14,7 +14,16 @@ only valid for 5 visits before next week using this application.
 Configuration
 -------------
 
-1. Add the authentication backend of this django-onetime application to
+1. Add django-onetime application into your Django project. Modify your
+   ``settings.py`` like the following::
+
+        INSTALLED_APPS = (
+            ...
+            'onetime',
+            ...
+        )
+
+2. Add the authentication backend of this django-onetime application to
    your project's ``settings.py``.
    ::
 
@@ -31,7 +40,7 @@ Configuration
    http://docs.djangoproject.com/en/dev/topics/auth/#other-authentication-sources
 
 
-2. Include the application's ``urls.py`` to your project.
+3. Include the application's ``urls.py`` to your project.
    ::
 
         urlpatterns = patterns('',
