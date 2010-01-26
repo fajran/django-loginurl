@@ -26,7 +26,7 @@ def create(user, usage_left=1, expires=None, next=None):
 
     Another application in your Django application can call this method to
     create a one time key for a user. This key then can be used as a parameter
-    when opening ``login`` view. See the documentation for examples.
+    when opening ``login`` view. See the README.rst file for example.
 
     The key does not always have to be a one time key since it actually
     contains ``usage_left`` and ``expires`` properties that tell how many times
