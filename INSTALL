@@ -1,0 +1,53 @@
+Installation Guide
+==================
+
+This document will put you through the installation steps for django-onetime.
+
+
+Configuration
+-------------
+
+1. Add the authentication backend of this django-onetime application to your
+   project's ``settings.py``
+
+        AUTHENTICATION_BACKENDS = (
+            'django.contrib.auth.backends.ModelBackend',
+            'onetime.backends.OneTimeBackend',
+        )
+   
+   The first authentication backend is the default and if your project uses the
+   Django's standard authentication mechanism, you will need that.
+
+   Consult the Django documentation for more information regarding the backend.
+   http://docs.djangoproject.com/en/dev/topics/auth/#other-authentication-sources
+
+
+2. Include the application's ``urls.py`` to your project.
+
+        urlpatterns = patterns('',
+            ...
+            (r'^onetime/', include('onetime.urls')),
+            ...
+        )
+    
+   This will make requests to ``onetime/`` are handled by django-onetime. If
+   the configuration is put inside the project's ``urls.py``, the log in URL
+   will look like the following.
+
+       http://example.com/onetime/a-secret-key
+
+
+Scheduled Task
+--------------
+
+To keep your database clean from expired secret keys, a scheduled task need to
+be set up. This task should do one of the following.
+
+1. Call ``onetime_cleanup`` command from the Django's management script.
+
+2. Open a special URL that will trigger the clean up, ``onetime/cleanup/``.
+   e.g. http://example.com/onetime/cleanup/
+
+You can use crontab or the web based one to set this up. A daily or weekly task
+should be enough.
+
