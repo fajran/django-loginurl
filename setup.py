@@ -4,7 +4,7 @@ import onetime
 
 setup(name='django-onetime',
       version=onetime.__version__,
-      description='A one time authentication application.',
+      description='Django One-Time Login URL',
       author='Fajran Iman Rusadi',
       author_email='fajran@gmail.com',
       url='http://github.com/fajran/django-onetime/',
