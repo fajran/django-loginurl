@@ -11,7 +11,7 @@ def cleanup(request):
     utils.cleanup()
     return HttpResponse('ok', content_type='text/plain')
 
-def login(request, key, login_url=None):
+def login(request, key):
     next = request.GET.get('next', None)
     if next is None:
         next = settings.LOGIN_REDIRECT_URL
