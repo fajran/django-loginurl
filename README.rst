@@ -88,3 +88,14 @@ property called ``key`` that contains a unique key for the log in URL.
 
         return url
 
+
+Acknowledgement
+---------------
+
+This code has been developed in the context of the research activities of the
+FET project (Grant agreement no. 231807).
+
+    Epiwork: developing the framework for an epidemic forecast infrastructure.
+
+See http://www.epiwork.eu/
+
