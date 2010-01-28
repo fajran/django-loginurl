@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.utils.http import int_to_base36, base36_to_int
 
-from onetime.models import Key
+from loginurl.models import Key
 
 def _create_token(user):
     """
@@ -76,7 +76,7 @@ def cleanup():
 
     A scheduled calls should be made to this method to make the database clean.
     This can be done in at least two ways: opening the ``cleanup`` view or
-    running ``onetime_cleanup`` command from the Django's management script.
+    running ``loginurl_cleanup`` command from the Django's management script.
     """
     data = Key.objects.filter(Q(usage_left__lte=0) | 
                               Q(expires__lt=datetime.now()))

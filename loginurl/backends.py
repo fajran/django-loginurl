@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 
-from onetime.models import Key
+from loginurl.models import Key
 
-class OneTimeBackend:
+class LoginUrlBackend:
     """
     Authentication backend that checks the given ``key`` to a record in the
     ``Key`` model. If the record is found, then ``is_valid()`` method is called

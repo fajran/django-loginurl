@@ -4,8 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseGone
 from django.contrib import auth
 from django.conf import settings
 
-from onetime import utils
-from onetime.models import Key
+from loginurl import utils
+from loginurl.models import Key
 
 def cleanup(request):
     """
@@ -39,7 +39,7 @@ def login(request, key):
         next = settings.LOGIN_REDIRECT_URL
 
     # Validate the key through the standard Django's authentication mechanism.
-    # It also means that the authentication backend of this django-onetime
+    # It also means that the authentication backend of this django-loginurl
     # application has to be added to the authentication backends configuration.
     user = auth.authenticate(key=key)
     if user is None:

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from onetime.models import Key
+from loginurl.models import Key
 
 class KeyAdmin(admin.ModelAdmin):
     list_display = ('user', 'key', 'created', 'usage_left', 'expires')

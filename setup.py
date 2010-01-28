@@ -1,16 +1,16 @@
 from distutils.core import setup
 
-import onetime
+import loginurl
 
-setup(name='django-onetime',
-      version=onetime.__version__,
+setup(name='django-loginurl',
+      version=loginurl.__version__,
       description='Django One-Time Login URL',
       author='Fajran Iman Rusadi',
       author_email='fajran@gmail.com',
-      url='http://github.com/fajran/django-onetime/',
-      download_url='http://github.com/fajran/django-onetime/tarball/v0.1.1',
-      packages=['onetime', 'onetime.management', 'onetime.management.commands'],
-      package_dir={'onetime': 'onetime'},
+      url='http://github.com/fajran/django-loginurl/',
+      download_url='http://github.com/fajran/django-loginurl/tarball/v0.1.1',
+      packages=['loginurl', 'loginurl.management', 'loginurl.management.commands'],
+      package_dir={'loginurl': 'loginurl'},
       classifiers=['Development Status :: 4 - Beta',
                    'Environment :: Web Environment',
                    'Framework :: Django',
