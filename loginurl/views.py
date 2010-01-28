@@ -18,8 +18,8 @@ def login(request, key):
     """
     Log in using a key.
 
-    When a visitor opens this view with a valid key, the visitor will be
-    logged in using the user associated with the key.
+    When a visitor opens this view with a valid key, the visitor will be logged
+    in using the user associated with the key.
 
     When the log in is successful, the usage counter in the key is updated. If
     the key is really a one time key, the next usage of the key will be

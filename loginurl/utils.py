@@ -22,21 +22,21 @@ def _create_token(user):
 
 def create(user, usage_left=1, expires=None, next=None):
     """
-    Create a one time key for a user.
+    Create a secret login key for a user.
 
     Another application in your Django application can call this method to
-    create a one time key for a user. This key then can be used as a parameter
-    when opening ``login`` view. See the README.rst file for example.
+    create a secret login key for a user. This key then can be used as a
+    parameter when opening ``login`` view. See the README.rst file for example.
 
-    The key does not always have to be a one time key since it actually
-    contains ``usage_left`` and ``expires`` properties that tell how many times
-    the key can be used and when the key is expired. Before both conditions are
-    satisfied, the key is still valid and can be used for authentication.
+    By default, the key can only be used once and does not have an expiry time.
+    This can be configured by setting the correct value to ``usage_left`` and
+    ``expires`` properties of the key. These properties tell how many times the
+    key can be used and when the key is no longer valid. Before both conditions
+    are satisfied, the key is valid and can be used for authentication.
 
-    A special value ``None`` can be used to disable condition checking that
-    involves the property with None value. If ``usage_left`` is ``None`` then
-    the key can be used multiple times and ``None`` in ``expires`` property
-    means that the key will not expire.
+    A special value ``None`` can be used to disable one or both properties. If
+    ``usage_left`` is ``None`` then the key can be used multiple times and
+    ``None`` in ``expires`` property means the key will not expire.
 
     **Arguments**
 
