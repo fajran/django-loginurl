@@ -4,7 +4,7 @@ import loginurl
 
 setup(name='django-loginurl',
       version=loginurl.__version__,
-      description='Django One-Time Login URL',
+      description='Allowing an anonymous user to log in by only visiting a URL',
       author='Fajran Iman Rusadi',
       author_email='fajran@gmail.com',
       url='http://github.com/fajran/django-loginurl/',
