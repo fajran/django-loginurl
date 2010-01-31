@@ -1,6 +1,12 @@
 django-loginurl changelog
 =========================
 
+Latest Updates
+--------------
+
+* Add unittest
+* Various updates and bug fixes
+
 Version 0.1.2, 28 January 2010
 ------------------------------
 
@@ -12,7 +18,6 @@ Version 0.1.1, 26 January 2010
 
 * Added documentation in the README.rst file.
 * Added changelog file.
-
 
 Version 0.1.0, 25 January 2010
 ------------------------------
