@@ -8,7 +8,7 @@ class Key(models.Model):
     A simple key store.
     """
     user = models.ForeignKey(User)
-    key = models.CharField(max_length=40)
+    key = models.CharField(max_length=40, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     usage_left = models.IntegerField(null=True, default=1)
     expires = models.DateTimeField(null=True)
