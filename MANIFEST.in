@@ -3,3 +3,4 @@ include MANIFEST.in
 include AUTHORS
 include README.rst
 include CHANGELOG
+include INSTALL
