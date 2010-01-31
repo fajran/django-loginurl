@@ -1,8 +1,8 @@
 django-loginurl changelog
 =========================
 
-Latest Updates
---------------
+Version 0.1.3, 31 January 2010
+------------------------------
 
 * Add unittest
 * Add installation guide
