@@ -5,6 +5,7 @@ import loginurl
 setup(name='django-loginurl',
       version=loginurl.__version__,
       description='Allowing an anonymous user to log in by only visiting a URL',
+      long_description=open('README.rst').read(),
       author='Fajran Iman Rusadi',
       author_email='fajran@gmail.com',
       url='http://github.com/fajran/django-loginurl/',
