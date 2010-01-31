@@ -1,0 +1,13 @@
+Installation Guide
+==================
+
+To install django-loginurl, run the following command inside this directory::
+
+    $ python setup.py install
+
+You can also use ``easy_install`` to download and install the package
+automatically::
+
+    $ easy_install django-loginurl
+
+
