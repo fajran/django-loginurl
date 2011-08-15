@@ -8,6 +8,9 @@ class LoginUrlBackend:
     ``Key`` model. If the record is found, then ``is_valid()`` method is called
     to check if the key is still valid.
     """
+    supports_object_permissions = False
+    supports_anonymous_user = False
+
     def authenticate(self, key):
         """
         Check if the key is valid.
