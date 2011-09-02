@@ -4,6 +4,7 @@ django-loginurl changelog
 Version 0.1.4, 2 September 2011
 -------------------------------
 
+* Redirect to the default login page when no key is provided
 * Set zip_safe to False
   https://github.com/fajran/django-loginurl/issues/1
 
