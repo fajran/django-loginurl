@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.db.models import Q
 from django.conf import settings
-from django.utils.http import int_to_base36, base36_to_int
+from django.utils.http import int_to_base36
 
 def _create_token(user):
     """
