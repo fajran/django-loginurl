@@ -3,6 +3,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+from loginurl.utils import create_key
+
 class Key(models.Model):
     """
     A simple key store.
@@ -19,8 +21,6 @@ class Key(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.key:
-            # Avoid circular import
-            from loginurl.utils import create_key
             self.key = create_key(self.user)
 
         return super(Key, self).save(*args, **kwargs)

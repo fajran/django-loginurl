@@ -6,8 +6,6 @@ from django.db.models import Q
 from django.conf import settings
 from django.utils.http import int_to_base36, base36_to_int
 
-from loginurl.models import Key
-
 def _create_token(user):
     """
     Create a unique token for a user.
@@ -61,6 +59,8 @@ def create(user, usage_left=1, expires=None, next=None):
         If this parameter is None, then the default ``settings.LOGIN_URL`` will
         be used.
     """
+    from loginurl.models import Key
+
     key = create_key(user)
 
     data = Key()
@@ -83,6 +83,8 @@ def cleanup():
     This can be done in at least two ways: opening the ``cleanup`` view or
     running ``loginurl_cleanup`` command from the Django's management script.
     """
+    from loginurl.models import Key
+
     data = Key.objects.filter(Q(usage_left__lte=0) | 
                               Q(expires__lt=datetime.now()))
     if data is not None:
