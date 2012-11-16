@@ -3,19 +3,33 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.utils.http import int_to_base36
+
+
 class Key(models.Model):
     """
     A simple key store.
     """
     user = models.ForeignKey(User)
-    key = models.CharField(max_length=40, unique=True)
+    key = models.CharField(max_length=40, unique=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     usage_left = models.IntegerField(null=True, default=1)
-    expires = models.DateTimeField(null=True)
-    next = models.CharField(null=True, max_length=200)
+    expires = models.DateTimeField(null=True, blank=True)
+    next = models.CharField(null=True, blank=True, max_length=200)
 
     def __unicode__(self):
         return '%s (%s)' % (self.key, self.user.username)
+
+    def save(self, *args, **kwargs):
+            if not self.key: 
+                # Avoid circular import
+                from loginurl.utils import _create_token
+
+                token = _create_token(self.user)
+                b36_uid = int_to_base36(self.user.id)
+                self.key = '%s-%s' % (b36_uid, token)
+
+            return super(Key, self).save(*args, **kwargs)
 
     def is_valid(self):
         """
@@ -40,4 +54,3 @@ class Key(models.Model):
         if self.usage_left is not None and self.usage_left > 0:
             self.usage_left -= 1
             self.save()
-
