@@ -12,7 +12,7 @@ class Key(models.Model):
     user = models.ForeignKey(User)
     key = models.CharField(max_length=40, unique=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    usage_left = models.IntegerField(null=True, default=1)
+    usage_left = models.IntegerField(null=True, blank=True, default=1)
     expires = models.DateTimeField(null=True, blank=True)
     next = models.CharField(null=True, blank=True, max_length=200)
 
