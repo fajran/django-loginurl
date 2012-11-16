@@ -20,6 +20,13 @@ def _create_token(user):
     hash.digest()
     return hash.hexdigest()
 
+def create_key(user):
+    token = _create_token(user)
+    b36_uid = int_to_base36(user.id)
+    key = '%s-%s' % (b36_uid, token)
+
+    return key
+
 def create(user, usage_left=1, expires=None, next=None):
     """
     Create a secret login key for a user.
@@ -54,9 +61,7 @@ def create(user, usage_left=1, expires=None, next=None):
         If this parameter is None, then the default ``settings.LOGIN_URL`` will
         be used.
     """
-    token = _create_token(user)
-    b36_uid = int_to_base36(user.id)
-    key = '%s-%s' % (b36_uid, token)
+    key = create_key(user)
 
     data = Key()
     data.user = user

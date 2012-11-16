@@ -3,9 +3,6 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-from django.utils.http import int_to_base36
-
-
 class Key(models.Model):
     """
     A simple key store.
@@ -21,15 +18,12 @@ class Key(models.Model):
         return '%s (%s)' % (self.key, self.user.username)
 
     def save(self, *args, **kwargs):
-            if not self.key: 
-                # Avoid circular import
-                from loginurl.utils import _create_token
+        if not self.key:
+            # Avoid circular import
+            from loginurl.utils import create_key
+            self.key = create_key(self.user)
 
-                token = _create_token(self.user)
-                b36_uid = int_to_base36(self.user.id)
-                self.key = '%s-%s' % (b36_uid, token)
-
-            return super(Key, self).save(*args, **kwargs)
+        return super(Key, self).save(*args, **kwargs)
 
     def is_valid(self):
         """
