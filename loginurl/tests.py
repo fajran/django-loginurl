@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timedelta
 
-from mock import Mock, patch, patch_object
+from mock import Mock, patch
 
 from django.contrib.auth.models import User
 from django.utils.http import int_to_base36, base36_to_int
@@ -207,7 +207,7 @@ class ViewCleanUpTestCase(unittest.TestCase):
     def testCleanUp(self):
         mock = Mock()
 
-        @patch_object(utils, 'cleanup', mock)
+        @patch.object(utils, 'cleanup', mock)
         def test():
             return views.cleanup(None)
 
@@ -228,7 +228,7 @@ class ViewLoginTestCae(BaseTestCase):
         data = utils.create(self.user)
         self.assertEqual(data.usage_left, 1)
 
-        @patch_object(views, 'auth', auth)
+        @patch.object(views, 'auth', auth)
         def test(request, key):
             return views.login(request, key)
 
@@ -247,7 +247,7 @@ class ViewLoginTestCae(BaseTestCase):
         req = Mock()
         req.GET.get.return_value = None
 
-        @patch_object(views, 'auth', auth)
+        @patch.object(views, 'auth', auth)
         def test(request):
             return views.login(request, 'invalid-key')
 
@@ -268,7 +268,7 @@ class ViewLoginTestCae(BaseTestCase):
         data = utils.create(self.user, next='/next/page/')
         self.assertEqual(data.usage_left, 1)
 
-        @patch_object(views, 'auth', auth)
+        @patch.object(views, 'auth', auth)
         def test(request, key):
             return views.login(request, key)
 
@@ -290,7 +290,7 @@ class ViewLoginTestCae(BaseTestCase):
         data = utils.create(self.user)
         self.assertEqual(data.usage_left, 1)
 
-        @patch_object(views, 'auth', auth)
+        @patch.object(views, 'auth', auth)
         def test(request, key):
             return views.login(request, key)
 
@@ -312,7 +312,7 @@ class ViewLoginTestCae(BaseTestCase):
         data = utils.create(self.user, next='/next/database/')
         self.assertEqual(data.usage_left, 1)
 
-        @patch_object(views, 'auth', auth)
+        @patch.object(views, 'auth', auth)
         def test(request, key):
             return views.login(request, key)
 
@@ -331,7 +331,7 @@ class ViewLoginTestCae(BaseTestCase):
         req = Mock()
         req.GET.get.return_value = '/next/query-string/'
 
-        @patch_object(views, 'auth', auth)
+        @patch.object(views, 'auth', auth)
         def test(request):
             return views.login(request, 'invalid-key')
 
@@ -347,7 +347,7 @@ class CommandTestCase(unittest.TestCase):
 
         mock = Mock()
         
-        @patch_object(utils, 'cleanup', mock)
+        @patch.object(utils, 'cleanup', mock)
         def test():
             management.call_command('loginurl_cleanup')
 
