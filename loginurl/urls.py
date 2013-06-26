@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic.simple import redirect_to
+from django.views.generic import RedirectView
 from django.conf import settings
 
 from loginurl.views import cleanup, login
@@ -7,6 +7,5 @@ from loginurl.views import cleanup, login
 urlpatterns = patterns('',
     (r'^cleanup/$', cleanup),
     (r'^(?P<key>[0-9A-Za-z]+-[a-z0-9-]+)/$', login), 
-    url(r'^$', redirect_to, {'url': settings.LOGIN_URL}, name='loginurl-index'),
+    url(r'^$', RedirectView.as_view(url=settings.LOGIN_URL), name='loginurl-index'),
 )
-
