@@ -1,6 +1,15 @@
 django-loginurl changelog
 =========================
 
+Version 0.2, 8 July 2013
+------------------------
+
+* Various fixes and improvements
+* Django 1.5 compatibility and this will break compatibility
+  with Django <1.3. Users with older version of Django still
+  can use django-loginurl v0.1.4
+  https://github.com/fajran/django-loginurl/pull/6
+
 Version 0.1.4, 2 September 2011
 -------------------------------
 
