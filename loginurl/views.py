@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseGone
 from django.contrib import auth
 from django.conf import settings

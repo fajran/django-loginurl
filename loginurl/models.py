@@ -1,7 +1,6 @@
-from datetime import datetime
-
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from loginurl.utils import create_key
 
@@ -35,7 +34,7 @@ class Key(models.Model):
         """
         if self.usage_left is not None and self.usage_left <= 0:
             return False
-        if self.expires is not None and self.expires < datetime.now():
+        if self.expires is not None and self.expires < timezone.now():
             return False
         return True
 

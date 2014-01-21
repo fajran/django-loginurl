@@ -1,9 +1,9 @@
 import uuid
 import hashlib
-from datetime import datetime
 
 from django.db.models import Q
 from django.conf import settings
+from django.utils import timezone
 from django.utils.http import int_to_base36
 
 def _create_token(user):
@@ -86,7 +86,7 @@ def cleanup():
     from loginurl.models import Key
 
     data = Key.objects.filter(Q(usage_left__lte=0) | 
-                              Q(expires__lt=datetime.now()))
+                              Q(expires__lt=timezone.now()))
     if data is not None:
         data.delete()
 

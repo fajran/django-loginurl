@@ -1,9 +1,10 @@
 import unittest
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from mock import Mock, patch
 
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.utils.http import int_to_base36, base36_to_int
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseGone
 from django.conf import settings
@@ -38,7 +39,7 @@ class CreateKeyTestCase(BaseTestCase):
         self.assertEqual(data.usage_left, 10)
 
     def testOneWeek(self):
-        oneweek = datetime.now() + timedelta(days=7)
+        oneweek = timezone.now() + timedelta(days=7)
         data = utils.create(self.user, expires=oneweek)
         self.assertEqual(data.expires, oneweek)
 
@@ -70,7 +71,7 @@ class CleanUpTestCase(BaseTestCase):
         self.assertEqual(len(Key.objects.all()), 0)
 
     def testValid(self):
-        oneweek = datetime.now() + timedelta(days=7)
+        oneweek = timezone.now() + timedelta(days=7)
         data = utils.create(self.user, usage_left=1, expires=oneweek)
         self.assertEqual(len(Key.objects.all()), 1)
 
@@ -78,7 +79,7 @@ class CleanUpTestCase(BaseTestCase):
         self.assertEqual(len(Key.objects.all()), 1)
         
     def testExpired(self):
-        oneweekago = datetime.now() - timedelta(days=7)
+        oneweekago = timezone.now() - timedelta(days=7)
         data = utils.create(self.user, usage_left=1, expires=oneweekago)
         self.assertEqual(len(Key.objects.all()), 1)
 
@@ -94,27 +95,27 @@ class CleanUpTestCase(BaseTestCase):
 
 class ModelCheckValidTestCase(BaseTestCase):
     def testPositive(self):
-        oneweek = datetime.now() + timedelta(days=7)
+        oneweek = timezone.now() + timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=1, expires=oneweek)
         self.assertTrue(data.is_valid())
 
     def testZero(self):
-        oneweek = datetime.now() + timedelta(days=7)
+        oneweek = timezone.now() + timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=0, expires=oneweek)
         self.assertFalse(data.is_valid())
 
     def testNegative(self):
-        oneweek = datetime.now() + timedelta(days=7)
+        oneweek = timezone.now() + timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=-1, expires=oneweek)
         self.assertFalse(data.is_valid())
 
     def testValid(self):
-        oneweek = datetime.now() + timedelta(days=7)
+        oneweek = timezone.now() + timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=1, expires=oneweek)
         self.assertTrue(data.is_valid())
         
     def testExpired(self):
-        oneweekago = datetime.now() - timedelta(days=7)
+        oneweekago = timezone.now() - timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=1, expires=oneweekago)
         self.assertFalse(data.is_valid())
      
@@ -123,7 +124,7 @@ class ModelCheckValidTestCase(BaseTestCase):
         self.assertTrue(data.is_valid())
         
     def testBothInvalid(self):
-        oneweekago = datetime.now() - timedelta(days=7)
+        oneweekago = timezone.now() - timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=-1, expires=oneweekago)
         self.assertFalse(data.is_valid())
      
