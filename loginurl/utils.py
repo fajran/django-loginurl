@@ -13,15 +13,15 @@ def _create_token(user):
     The token is created from the user id and a unique id generated
     from UUIDv4. Then both are hashed using MD5 digest algorithm.
     """
-    id = '%d-%s' % (user.id, str(uuid.uuid4()))
-    hash = hashlib.md5(id)
+    id = '{}-{}'.format(user.id, str(uuid.uuid4()))
+    hash = hashlib.md5(id.encode('ascii'))
     hash.digest()
     return hash.hexdigest()
 
 def create_key(user):
     token = _create_token(user)
     b36_uid = int_to_base36(user.id)
-    key = '%s-%s' % (b36_uid, token)
+    key = '{}-{}'.format(b36_uid, token)
 
     return key
 
@@ -85,7 +85,7 @@ def cleanup():
     """
     from loginurl.models import Key
 
-    data = Key.objects.filter(Q(usage_left__lte=0) | 
+    data = Key.objects.filter(Q(usage_left__lte=0) |
                               Q(expires__lt=timezone.now()))
     if data is not None:
         data.delete()

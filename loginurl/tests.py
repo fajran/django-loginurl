@@ -77,7 +77,7 @@ class CleanUpTestCase(BaseTestCase):
 
         utils.cleanup()
         self.assertEqual(len(Key.objects.all()), 1)
-        
+
     def testExpired(self):
         oneweekago = timezone.now() - timedelta(days=7)
         data = utils.create(self.user, usage_left=1, expires=oneweekago)
@@ -85,7 +85,7 @@ class CleanUpTestCase(BaseTestCase):
 
         utils.cleanup()
         self.assertEqual(len(Key.objects.all()), 0)
-     
+
     def testAlwaysValid(self):
         data = utils.create(self.user, usage_left=None, expires=None)
         self.assertEqual(len(Key.objects.all()), 1)
@@ -113,21 +113,21 @@ class ModelCheckValidTestCase(BaseTestCase):
         oneweek = timezone.now() + timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=1, expires=oneweek)
         self.assertTrue(data.is_valid())
-        
+
     def testExpired(self):
         oneweekago = timezone.now() - timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=1, expires=oneweekago)
         self.assertFalse(data.is_valid())
-     
+
     def testAlwaysValid(self):
         data = Key.objects.create(user=self.user, usage_left=None, expires=None)
         self.assertTrue(data.is_valid())
-        
+
     def testBothInvalid(self):
         oneweekago = timezone.now() - timedelta(days=7)
         data = Key.objects.create(user=self.user, usage_left=-1, expires=oneweekago)
         self.assertFalse(data.is_valid())
-     
+
 class ModelUpdateUsageTestCase(BaseTestCase):
     def testDefault(self):
         data = Key.objects.create(user=self.user)
@@ -137,7 +137,7 @@ class ModelUpdateUsageTestCase(BaseTestCase):
 
         datadb = Key.objects.get(key=data.key)
         self.assertEqual(datadb.usage_left, 0)
-        
+
     def testNone(self):
         data = Key.objects.create(user=self.user, usage_left=None)
         self.assertEqual(data.usage_left, None)
@@ -187,7 +187,7 @@ class BackendTestCase(BaseTestCase):
 
     def testInvalidKey(self):
         data = utils.create(self.user)
-        invalid_key = '%s-invalid' % data.key
+        invalid_key = '{}-invalid'.format(data.key)
 
         res = self.backend.authenticate(invalid_key)
         self.assertEqual(res, None)
@@ -237,7 +237,7 @@ class ViewLoginTestCae(BaseTestCase):
 
         self.assertTrue(isinstance(res, HttpResponseRedirect))
         self.assertEqual(res['Location'], settings.LOGIN_REDIRECT_URL)
-            
+
         datadb = Key.objects.get(key=data.key)
         self.assertEqual(datadb.usage_left, 0)
 
@@ -254,8 +254,8 @@ class ViewLoginTestCae(BaseTestCase):
 
         res = test(req)
 
-        next = '%s?next=%s' % (settings.LOGIN_URL, 
-                               settings.LOGIN_REDIRECT_URL)
+        next = '{}?next={}'.format(settings.LOGIN_URL,
+                                   settings.LOGIN_REDIRECT_URL)
         self.assertTrue(isinstance(res, HttpResponseRedirect))
         self.assertEqual(res['Location'], next)
 
@@ -277,7 +277,7 @@ class ViewLoginTestCae(BaseTestCase):
 
         self.assertTrue(isinstance(res, HttpResponseRedirect))
         self.assertEqual(res['Location'], '/next/page/')
-            
+
         datadb = Key.objects.get(key=data.key)
         self.assertEqual(datadb.usage_left, 0)
 
@@ -299,7 +299,7 @@ class ViewLoginTestCae(BaseTestCase):
 
         self.assertTrue(isinstance(res, HttpResponseRedirect))
         self.assertEqual(res['Location'], '/next/page/')
-            
+
         datadb = Key.objects.get(key=data.key)
         self.assertEqual(datadb.usage_left, 0)
 
@@ -321,7 +321,7 @@ class ViewLoginTestCae(BaseTestCase):
 
         self.assertTrue(isinstance(res, HttpResponseRedirect))
         self.assertEqual(res['Location'], '/next/database/')
-            
+
         datadb = Key.objects.get(key=data.key)
         self.assertEqual(datadb.usage_left, 0)
 
@@ -338,7 +338,7 @@ class ViewLoginTestCae(BaseTestCase):
 
         res = test(req)
 
-        next = '%s?next=%s' % (settings.LOGIN_URL, '/next/query-string/')
+        next = '{}?next={}'.format(settings.LOGIN_URL, '/next/query-string/')
         self.assertTrue(isinstance(res, HttpResponseRedirect))
         self.assertEqual(res['Location'], next)
 
@@ -347,7 +347,7 @@ class CommandTestCase(unittest.TestCase):
         from loginurl.management.commands import loginurl_cleanup
 
         mock = Mock()
-        
+
         @patch.object(utils, 'cleanup', mock)
         def test():
             management.call_command('loginurl_cleanup')

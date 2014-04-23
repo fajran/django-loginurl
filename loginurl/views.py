@@ -43,7 +43,7 @@ def login(request, key):
     if user is None:
         url = settings.LOGIN_URL
         if next is not None:
-            url = '%s?next=%s' % (url, next)
+            url = '{}?next={}'.format(url, next)
         return HttpResponseRedirect(url)
 
     # The key is valid, then now log the user in.
@@ -55,6 +55,6 @@ def login(request, key):
 
     if data.next is not None:
         next = data.next
-    
+
     return HttpResponseRedirect(next)
 
